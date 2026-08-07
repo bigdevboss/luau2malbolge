@@ -11,10 +11,6 @@ export type GenResult = {
 	error: string?,
 }
 
-local function safeWrite(v: number): boolean
-	return v >= 33 and v <= 126
-end
-
 local function findPath(
 	startA: number,
 	startAddr: number,
@@ -99,7 +95,7 @@ function Generator.printString(text: string, maxDepth: number?): GenResult
 				ok = false,
 				source = "",
 				normalized = "",
-				error = `не найден путь для символа #{i} ('{string.char(target)}') на адресе {addr}`,
+				error = `no path for char #{i} ('{string.char(target)}') at addr {addr}`,
 			}
 		end
 
@@ -125,7 +121,7 @@ function Generator.printString(text: string, maxDepth: number?): GenResult
 				ok = false,
 				source = "",
 				normalized = normalized,
-				error = `невозможно закодировать '{op}' на адресе {i - 1}`,
+				error = `cannot encode '{op}' at addr {i - 1}`,
 			}
 		end
 		table.insert(chars, string.char(v))
@@ -149,7 +145,7 @@ function Generator.assemble(normalized: string): GenResult
 				ok = false,
 				source = "",
 				normalized = normalized,
-				error = `невозможно закодировать '{op}' на адресе {i - 1}`,
+				error = `cannot encode '{op}' at addr {i - 1}`,
 			}
 		end
 		table.insert(chars, string.char(v))
