@@ -41,7 +41,7 @@ function Tracer.trace(source: string, maxSteps: number, input: string?): ({ Trac
 			note = `d := mem[d] = {d}`
 		elseif op == "i" then
 			c = mem[d + 1]
-			note = `c := mem[d] = {c} (далее c+1 = {c + 1})`
+			note = `c := mem[d] = {c} (next c+1 = {c + 1})`
 		elseif op == "*" then
 			local v = Machine.rotateRight(mem[d + 1])
 			mem[d + 1] = v
@@ -111,7 +111,7 @@ function Tracer.dump(steps: { TraceStep }, limit: number?)
 		))
 	end
 	if #steps > n then
-		print(`... ещё {#steps - n} шагов`)
+		print(`... {#steps - n} more steps`)
 	end
 end
 
