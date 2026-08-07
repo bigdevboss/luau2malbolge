@@ -39,7 +39,7 @@ local function findPath(
 
 			if vStar then
 				local na = Machine.rotateRight(vStar)
-				if safeWrite(na) and nextFrontier[na] == nil then
+				if nextFrontier[na] == nil then
 					local t = table.clone(ops)
 					table.insert(t, "*")
 					nextFrontier[na] = t
@@ -48,7 +48,7 @@ local function findPath(
 
 			if vP then
 				local na = Machine.crazy(a, vP)
-				if safeWrite(na) and nextFrontier[na] == nil then
+				if nextFrontier[na] == nil then
 					local t = table.clone(ops)
 					table.insert(t, "p")
 					nextFrontier[na] = t
