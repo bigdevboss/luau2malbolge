@@ -112,7 +112,7 @@ function GeneratorJI.printString(text: string, maxDepth: number?): GenResult
 				ok = false,
 				source = "",
 				normalized = "",
-				error = `не найден путь для символа #{i} ('{string.char(target)}'), позиция {pos}`,
+				error = `no path for char #{i} ('{string.char(target)}') at pos {pos}`,
 			}
 		end
 
@@ -135,7 +135,7 @@ function GeneratorJI.printString(text: string, maxDepth: number?): GenResult
 				ok = false,
 				source = "",
 				normalized = "",
-				error = `строка не помещается: нужно {#steps + 1} позиций кода, доступно {MAX_CODE_POS}`,
+				error = `string too long: need {#steps + 1} code slots, have {MAX_CODE_POS}`,
 			}
 		end
 	end
@@ -148,7 +148,7 @@ function GeneratorJI.printString(text: string, maxDepth: number?): GenResult
 			ok = false,
 			source = "",
 			normalized = "",
-			error = `программа слишком длинная: {K} > {MAX_CODE_POS}`,
+			error = `program too long: {K} > {MAX_CODE_POS}`,
 		}
 	end
 
@@ -157,7 +157,7 @@ function GeneratorJI.printString(text: string, maxDepth: number?): GenResult
 
 	local vj = Machine.encodeAt("j", 0)
 	if not vj then
-		return { ok = false, source = "", normalized = "", error = "невозможно закодировать 'j' на 0" }
+		return { ok = false, source = "", normalized = "", error = "cannot encode 'j' at 0" }
 	end
 	bytes[1] = vj
 
@@ -168,7 +168,7 @@ function GeneratorJI.printString(text: string, maxDepth: number?): GenResult
 				ok = false,
 				source = "",
 				normalized = "",
-				error = `невозможно закодировать '{steps[p].codeOp}' на {p}`,
+				error = `cannot encode '{steps[p].codeOp}' at {p}`,
 			}
 		end
 		bytes[p + 1] = v
@@ -177,7 +177,7 @@ function GeneratorJI.printString(text: string, maxDepth: number?): GenResult
 	for p = K + 1, DATA_OFFSET do
 		local v = Machine.encodeAt("o", p)
 		if not v then
-			return { ok = false, source = "", normalized = "", error = `наполнитель на {p}` }
+			return { ok = false, source = "", normalized = "", error = `cannot encode filler at {p}` }
 		end
 		bytes[p + 1] = v
 	end
@@ -190,7 +190,7 @@ function GeneratorJI.printString(text: string, maxDepth: number?): GenResult
 				ok = false,
 				source = "",
 				normalized = "",
-				error = `невозможно закодировать данные '{steps[p].dataOp}' на {dpos}`,
+				error = `cannot encode data '{steps[p].dataOp}' at {dpos}`,
 			}
 		end
 		bytes[dpos + 1] = v
